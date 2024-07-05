@@ -4,16 +4,38 @@ class Perceptron:
   '''
   Perceptron model - used for binary classification over a linearly seperable dataset
   '''
+  
   def __init__(self, X: numpy.array, y: numpy.array):
     '''
     `X` is the training data - a 2D numpy array where each row is a training point
 
     `y` is the training labels
     '''
+
+    # Ensure that the input data dimensions are correct
+
+    self.check_invariants(X, y)
+
     self.X = X
+
+    # Add a column of ones to the input data
+    self.X = numpy.hstack([self.X, numpy.ones((self.X.shape[0], 1))])
+
     self.y = y
-    self.weights = numpy.zeros(X.shape[1])
+    self.weights = numpy.zeros(X.shape[1] + 1)
     self.train()
+
+  def check_invariants(self, X: numpy.array, y: numpy.array):
+    '''
+    Check if the input data dimensions are correct
+    '''
+
+    num_samples_x = X.shape[0]
+    num_features = X.shape[1]
+    num_samples_y = y.shape[0]
+
+    assert num_samples_x == num_samples_y, 'Number of samples in X and y should be equal'
+
 
   def __call__(self, x: numpy.array):
     '''
