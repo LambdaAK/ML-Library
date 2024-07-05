@@ -55,7 +55,6 @@ cluster_assignment = model.cluster_assignment
 
 ## Linear Regression
 ```python
-// linear
 X = np.array([[0], [1], [2], [3]])
 y = np.array([0, 1, 2, 3, 4, 5])
 
