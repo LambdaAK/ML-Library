@@ -1,4 +1,5 @@
 import numpy
+import numpy as np
 
 class Perceptron:
   '''
@@ -23,6 +24,7 @@ class Perceptron:
 
     self.y = y
     self.weights = numpy.zeros(X.shape[1] + 1)
+    self.training = True
     self.train()
 
   def check_invariants(self, X: numpy.array, y: numpy.array):
@@ -41,6 +43,12 @@ class Perceptron:
     '''
     Predict the label of a single input `x`
     '''
+
+    # Add a 1 to the input data
+
+    if not self.training:
+      x = np.hstack([x, 1])
+
     # use @ for matrix multiplication
     return 1 if self.weights.T @ x > 0 else 0
 
@@ -63,3 +71,12 @@ class Perceptron:
       # If no updates were made, the model has converged
       if updates == 0:
         break
+
+    self.training = False
+
+X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+y = np.array([0, 1, 1, 1])
+
+model = Perceptron(X, y)
+
+print(model(np.array([0.5, 0.5])))
