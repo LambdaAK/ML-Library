@@ -41,4 +41,3 @@ class Perceptron:
       # If no updates were made, the model has converged
       if updates == 0:
         break
-
